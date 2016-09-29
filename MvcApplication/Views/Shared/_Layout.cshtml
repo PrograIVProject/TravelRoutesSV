@@ -1,16 +1,112 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
+
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
-    @RenderBody()
+<body class="homepage">
+    <div id="header-wrapper">
+        <div id="header" class="container">
+            <!-- Logo -->
+            <h1 id="logo"><a href="#">Travel Routes SV</a></h1>
+            <p>Conoce el atractivo de El Salvador.</p>
 
+            <!-- Barra navegacion
+        </div>
+        <!-- MEnu-->
+        <header class="clearfix">
+            <nav class="codrops-demos">
+                <a class="current-demo" href="index.html">Inicio</a>
+                <a href="index.html">Acerca de</a>
+                <a href="index.html">Galeria</a>
+                <a href="index.html">Lugares</a>
+                <a href="index.html">Contacto</a>
+            </nav>
+        </header>
+        </div>
+    </div>
+    @RenderBody()
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
+    <!-- Footer -->
+    <div id="footer-wrapper">
+        <div id="footer" class="container">
+            <header>
+                <h2>Preguntas o comentarios?</h2>
+            </header>
+            <div class="row">
+                <div class="6u">
+                    <section>
+                        <form method="post" action="#">
+                            <div class="row 50%">
+                                <div class="6u">
+                                    <input name="name" placeholder="Nombre" type="text" />
+                                </div>
+                                <div class="6u">
+                                    <input name="email" placeholder="Email" type="text" />
+                                </div>
+                            </div>
+                            <div class="row 50%">
+                                <div class="12u">
+                                    <textarea name="message" placeholder="Mensaje"></textarea>
+                                </div>
+                            </div>
+                            <div class="row 50%">
+                                <div class="12u">
+                                    <a href="#" class="form-button-submit button icon fa-envelope">Enviar</a>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+                <div class="6u">
+                    <section>
+                        <p>Nos interesa saber tu opinión, escribenos tu comentario y/o sugerencia. Buscanos en nuestras Redes Sociales como:</p>
+                        <div class="row">
+                            <div class="6u">
+                                <ul class="icons">
+                                    <li class="icon fa-home">
+                                        1234 Algún lugar, San Salvador<br />
+                                        El Salvador
+                                    </li>
+                                    <li class="icon fa-phone">
+                                        (000) 000-0000
+                                    </li>
+                                    <li class="icon fa-envelope">
+                                        <a href="#">info@travelroutes-sv.com</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="6u">
+                                <ul class="icons">
+                                    <li class="icon fa-twitter">
+                                        <a href="#">TravelRoutesSV</a>
+                                    </li>
+                                    <li class="icon fa-instagram">
+                                        <a href="#">instagram.com/TravelRoutesSV</a>
+                                    </li>
+                                    <li class="icon fa-facebook">
+                                        <a href="#">facebook.com/TravelRoutesSV</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div id="copyright" class="container">
+            <ul class="links">
+                <li>&copy; Copyright 2016. Derechos Reservados.</li>
+                <li>Design by: PrograIV Team - UDB El Salvador</a></li>
+            </ul>
+        </div>
+    </div>
 </body>
 </html>
