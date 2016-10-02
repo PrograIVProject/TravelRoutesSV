@@ -17,6 +17,12 @@ namespace MvcApplication
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                        "~/Scripts/angular.js"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                        "~/Scripts/bootstrap.js"
+                ));
 
             // Utilice la versión de desarrollo de Modernizr para desarrollar y obtener información sobre los formularios. De este modo, estará
             // preparado para la producción y podrá utilizar la herramienta de creación disponible en http://modernizr.com para seleccionar solo las pruebas que necesite.
@@ -27,14 +33,19 @@ namespace MvcApplication
                             "~/Content/css/skel.css",
                             "~/Content/css/style.css",
                             "~/Content/css/style-desktop.css",
-                            "~/Content/css/default.css"
-                            
-                            
-                            
-                            
-                            
+                            "~/Content/css/default.css"  
                             ));
-
+            bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
+                "~/Content/css/bootstrap/bootstrap.css",
+                "~/Content/css/bootstrap/bootstrap-theme.css"
+                
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/map").Include(
+                            "~/Scripts/jcanvas.js",
+                            "~/Scripts/map.js",
+                            "~/Content/DestinationService.js",
+                            "~/Content/MapController.js"
+                ));
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
                         "~/Content/themes/base/jquery.ui.resizable.css",

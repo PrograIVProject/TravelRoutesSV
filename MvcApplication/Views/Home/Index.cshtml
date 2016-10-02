@@ -2,5 +2,35 @@
     ViewBag.Title = "Travel Routes SV";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@Scripts.Render("~/bundles/map")
+<div id="app" ng-app="map" ng-controller="MapController" ng-init="loadDestinations()">
+    <button class="btn btn-success" id="btnAddLayer" ng-click="selectMap()">Agregar Destino</button>
+    <div class="alert alert-info" ng-if="addingNew">Seleccione en el mapa el lugar del nuevo destino.</div>
+    <div class="content">
+        <canvas id="myCanvas" width="1024" height="512" ng-click="canvasClick($event)"></canvas>
+    </div>
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" ng-if="addingNew">Nuevo Destino</h4>
+                    <h4 class="modal-title" ng-if="!addingNew">Ver Destino</h4>
+                </div>
+                <div class="modal-body">
+                    <label>Nombre</label>
+                    <input type="text" ng-model="Destination.Nombre" class="form-control" ng-disabled="!addingNew" />
+                    <label>Descripcion</label>
+                    <textarea ng-model="Destination.Descripcion" class="form-control" ng-disabled="!addingNew"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addNew()" ng-if="addingNew">Agregar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="openModal(false)">Cerrar</button>
+                </div>
+            </div>
 
-<h2>Index</h2>
+        </div>
+    </div>
+</div>

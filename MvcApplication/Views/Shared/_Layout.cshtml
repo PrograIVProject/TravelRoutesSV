@@ -7,8 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/bootstrap")
 
     @Scripts.Render("~/bundles/modernizr")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angular")
 </head>
 <body class="homepage">
     <div id="header-wrapper">
@@ -22,8 +27,8 @@
         <!-- MEnu-->
         <header class="clearfix">
             <nav class="codrops-demos">
-                <a class="current-demo" href="index.html">Inicio</a>
-                <a href="index.html">Acerca de</a>
+                @Html.ActionLink("Inicio", "Index", new { }, new { @class = "btn" })
+                @Html.ActionLink("Acerca", "About", new { }, new { @class = "btn" })
                 <a href="index.html">Galeria</a>
                 <a href="index.html">Lugares</a>
                 <a href="index.html">Contacto</a>
@@ -32,8 +37,7 @@
         </div>
     </div>
     @RenderBody()
-    @Scripts.Render("~/bundles/jquery")
-    @RenderSection("scripts", required: false)
+    
     <!-- Footer -->
     <div id="footer-wrapper">
         <div id="footer" class="container">
