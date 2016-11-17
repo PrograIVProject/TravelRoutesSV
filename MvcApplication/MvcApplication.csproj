@@ -179,7 +179,7 @@
     <Content Include="Content\css\style-desktop.css" />
     <Content Include="Content\css\style-mobile.css" />
     <Content Include="Content\css\style.css" />
-    <Content Include="Content\DestinationService.js" />
+    <Content Include="Content\DataService.js" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />

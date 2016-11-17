@@ -43,7 +43,7 @@ namespace MvcApplication
             bundles.Add(new ScriptBundle("~/bundles/map").Include(
                             "~/Scripts/jcanvas.js",
                             "~/Scripts/map.js",
-                            "~/Content/DestinationService.js",
+                            "~/Content/DataService.js",
                             "~/Content/MapController.js"
                 ));
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(

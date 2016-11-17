@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Scripts.Render("~/bundles/map")
-<div id="app" ng-app="map" ng-controller="MapController" ng-init="loadDestinations()">
+<div id="app" ng-app="map" ng-controller="MapController" ng-init="init()">
     <button class="btn btn-success" ng-click="selectMap('destino')">Agregar Destino</button>
     <button class="btn btn-success" ng-click="selectMap('conexion')">Agregar Conexión</button>{{addingNewArista}}
     <div class="alert alert-info" ng-if="addingNewDestino">Seleccione en el mapa el lugar del nuevo destino.</div>
@@ -13,9 +13,8 @@
         <canvas id="myCanvas" width="1024" height="512" ng-click="canvasClick($event)"></canvas>
     </div>
     <!-- Modal -->
-    <div id="myModal" class="modal fade" role="dialog">
+    <div id="destinoModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
-            <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -29,8 +28,30 @@
                     <textarea ng-model="Destination.Descripcion" class="form-control" ng-disabled="!addingNewDestino"></textarea>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addNew()" ng-if="addingNewDestino">Agregar</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="openModal(false)">Cerrar</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addNewDestino()" ng-if="addingNewDestino">Agregar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="openDestinoModal(false)">Cerrar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="aristaModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" ng-if="addingNewArista">Nueva Conexion</h4>
+                    <h4 class="modal-title" ng-if="!addingNewArista">Ver Conexion</h4>
+                </div>
+                <div class="modal-body">
+                    <label>Distancia</label>
+                    <input type="number" ng-model="Arista.Distancia" class="form-control" ng-disabled="!addingNewArista" />
+                    <label>Descripcion</label>
+                    <textarea ng-model="Arista.Descripcion" class="form-control" ng-disabled="!addingNewArista"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addNewArista()" ng-if="addingNewArista">Agregar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="openAristaModal(false)">Cerrar</button>
                 </div>
             </div>
 
