@@ -16,8 +16,8 @@ namespace MvcApplication.Models
     {
         public Destino()
         {
-            this.AristasFinal = new HashSet<Arista>();
-            this.AristasInicial = new HashSet<Arista>();
+            this.AristasIniciales = new HashSet<Arista>();
+            this.AristasFinales = new HashSet<Arista>();
         }
     
         public int Id { get; set; }
@@ -26,11 +26,11 @@ namespace MvcApplication.Models
         public string Descripcion { get; set; }
         public decimal Coordenada_X { get; set; }
         public decimal Coordenada_Y { get; set; }
-        public sbyte Tipo { get; set; }
+        public int Tipo { get; set; }
         public int IdUsuarioAgrega { get; set; }
     
-        public virtual ICollection<Arista> AristasFinal { get; set; }
-        public virtual ICollection<Arista> AristasInicial { get; set; }
+        public virtual ICollection<Arista> AristasIniciales { get; set; }
+        public virtual ICollection<Arista> AristasFinales { get; set; }
         public virtual Usuario UsuarioAgrega { get; set; }
     }
 }

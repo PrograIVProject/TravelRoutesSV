@@ -13,10 +13,10 @@ namespace MvcApplication.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ModelContainer : DbContext
+    public partial class travelEntities : DbContext
     {
-        public ModelContainer()
-            : base("name=ModelContainer")
+        public travelEntities()
+            : base("name=travelEntities")
         {
         }
     

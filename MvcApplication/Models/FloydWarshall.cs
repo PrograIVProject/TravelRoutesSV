@@ -7,7 +7,7 @@ namespace MvcApplication.Models
 {
     public class FloydWarshall
     {
-        private readonly ModelContainer _db = new ModelContainer();
+        
        
     }
 }

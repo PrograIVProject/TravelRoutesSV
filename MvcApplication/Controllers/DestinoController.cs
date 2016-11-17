@@ -9,16 +9,17 @@ namespace MvcApplication.Controllers
 {
     public class DestinoController : Controller
     {
-        private readonly ModelContainer _db = new ModelContainer();
+        private readonly travelEntities _db = new travelEntities();
         public JsonResult GetAll()
         {
             try {
+                
                 var destinos = _db.Destinos.Select(d => new {Id = d.Id, Nombre = d.Nombre, Imagen = d.Imagen, Descripcion = d.Descripcion, Coordenada_X = d.Coordenada_X, Coordenada_Y = d.Coordenada_Y, Tipo = d.Tipo, UsuarioAgrega = d.UsuarioAgrega.Nombre + " " + d.UsuarioAgrega.Apellido }).ToList();
                 return Json(new { success = true, destinos = destinos}, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new { success = true, message = ex.Message });
+                return Json(new { success = false, message = ex.Message });
             }
             
         }
@@ -30,7 +31,7 @@ namespace MvcApplication.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { success = true, message = ex.Message });
+                return Json(new { success = false, message = ex.Message });
             }
 
         }
@@ -43,7 +44,7 @@ namespace MvcApplication.Controllers
                 return Json(new { success = true, destino = destino });
             }
             catch (Exception ex) {
-                return Json(new { success = true, message = ex.Message});
+                return Json(new { success = false, message = ex.Message});
             }
             
             

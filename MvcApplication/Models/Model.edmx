@@ -4,8 +4,8 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="arista">
+    <Schema Namespace="travelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="aristas">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -15,289 +15,287 @@
           <Property Name="Distancia" Type="decimal" Precision="6" Scale="2" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="100" />
         </EntityType>
-        <EntityType Name="destino">
+        <EntityType Name="destinos">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Imagen" Type="varchar" MaxLength="100" />
           <Property Name="Descripcion" Type="varchar" MaxLength="100" />
           <Property Name="Coordenada_X" Type="decimal" Precision="6" Scale="2" Nullable="false" />
           <Property Name="Coordenada_Y" Type="decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="Tipo" Type="tinyint" Nullable="false" />
+          <Property Name="Tipo" Type="int" Nullable="false" />
           <Property Name="IdUsuarioAgrega" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="rol">
+        <EntityType Name="roles">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="usuario">
+        <EntityType Name="usuarios">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Usuario" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Usuario" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Contrasena" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="IdRol" Type="int" Nullable="false" />
-          <Property Name="Activo" Type="tinyint" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="Apellido" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="100" />
           <Property Name="Genero" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
-        <Association Name="Fk_Arista_DestinoFinal">
-          <End Role="destino" Type="Self.destino" Multiplicity="1" />
-          <End Role="arista" Type="Self.arista" Multiplicity="*" />
+        <Association Name="FK_arista_destinoinicial">
+          <End Role="destinos" Type="Self.destinos" Multiplicity="1" />
+          <End Role="aristas" Type="Self.aristas" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="destino">
+            <Principal Role="destinos">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="arista">
-              <PropertyRef Name="IdDestinoFinal" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Arista_DestinoInicial">
-          <End Role="destino" Type="Self.destino" Multiplicity="1" />
-          <End Role="arista" Type="Self.arista" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="destino">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="arista">
+            <Dependent Role="aristas">
               <PropertyRef Name="IdDestinoInicial" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Destino_UsuarioAgrega">
-          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
-          <End Role="destino" Type="Self.destino" Multiplicity="*" />
+        <Association Name="FK_aristas_destinofinal">
+          <End Role="destinos" Type="Self.destinos" Multiplicity="1" />
+          <End Role="aristas" Type="Self.aristas" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="usuario">
+            <Principal Role="destinos">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="destino">
+            <Dependent Role="aristas">
+              <PropertyRef Name="IdDestinoFinal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_destino_usuarioagrega">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="destinos" Type="Self.destinos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="destinos">
               <PropertyRef Name="IdUsuarioAgrega" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Usuario_Rol">
-          <End Role="rol" Type="Self.rol" Multiplicity="1" />
-          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+        <Association Name="FK_usuario_rol">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="rol">
+            <Principal Role="roles">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="usuario">
+            <Dependent Role="usuarios">
               <PropertyRef Name="IdRol" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ModelStoreContainer">
-          <EntitySet Name="arista" EntityType="Self.arista" Schema="travel" store:Type="Tables" />
-          <EntitySet Name="destino" EntityType="Self.destino" Schema="travel" store:Type="Tables" />
-          <EntitySet Name="rol" EntityType="Self.rol" Schema="travel" store:Type="Tables" />
-          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="travel" store:Type="Tables" />
-          <AssociationSet Name="Fk_Arista_DestinoFinal" Association="Self.Fk_Arista_DestinoFinal">
-            <End Role="destino" EntitySet="destino" />
-            <End Role="arista" EntitySet="arista" />
+        <EntityContainer Name="travelModelStoreContainer">
+          <EntitySet Name="aristas" EntityType="Self.aristas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="destinos" EntityType="Self.destinos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_arista_destinoinicial" Association="Self.FK_arista_destinoinicial">
+            <End Role="destinos" EntitySet="destinos" />
+            <End Role="aristas" EntitySet="aristas" />
           </AssociationSet>
-          <AssociationSet Name="FK_Arista_DestinoInicial" Association="Self.FK_Arista_DestinoInicial">
-            <End Role="destino" EntitySet="destino" />
-            <End Role="arista" EntitySet="arista" />
+          <AssociationSet Name="FK_aristas_destinofinal" Association="Self.FK_aristas_destinofinal">
+            <End Role="destinos" EntitySet="destinos" />
+            <End Role="aristas" EntitySet="aristas" />
           </AssociationSet>
-          <AssociationSet Name="FK_Destino_UsuarioAgrega" Association="Self.FK_Destino_UsuarioAgrega">
-            <End Role="usuario" EntitySet="usuario" />
-            <End Role="destino" EntitySet="destino" />
+          <AssociationSet Name="FK_destino_usuarioagrega" Association="Self.FK_destino_usuarioagrega">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="destinos" EntitySet="destinos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
-            <End Role="rol" EntitySet="rol" />
-            <End Role="usuario" EntitySet="usuario" />
+          <AssociationSet Name="FK_usuario_rol" Association="Self.FK_usuario_rol">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="usuarios" EntitySet="usuarios" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
-        <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Aristas" EntityType="Model.Arista" />
-          <EntitySet Name="Destinos" EntityType="Model.Destino" />
-          <EntitySet Name="Roles" EntityType="Model.Rol" />
-          <EntitySet Name="Usuarios" EntityType="Model.Usuario" />
-          <AssociationSet Name="Fk_Arista_DestinoFinal" Association="Model.Fk_Arista_DestinoFinal">
-            <End Role="destino" EntitySet="Destinos" />
-            <End Role="arista" EntitySet="Aristas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Arista_DestinoInicial" Association="Model.FK_Arista_DestinoInicial">
-            <End Role="destino" EntitySet="Destinos" />
-            <End Role="arista" EntitySet="Aristas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Destino_UsuarioAgrega" Association="Model.FK_Destino_UsuarioAgrega">
-            <End Role="usuario" EntitySet="Usuarios" />
-            <End Role="destino" EntitySet="Destinos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Usuario_Rol" Association="Model.FK_Usuario_Rol">
-            <End Role="rol" EntitySet="Roles" />
-            <End Role="usuario" EntitySet="Usuarios" />
-          </AssociationSet>
-        </EntityContainer>
+      <Schema Namespace="travelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Arista">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="IdDestinoInicial" Type="Int32" Nullable="false" />
           <Property Name="IdDestinoFinal" Type="Int32" Nullable="false" />
-          <Property Name="Distancia" Type="Decimal" Nullable="false" />
+          <Property Name="Distancia" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="DestinoFinal" Relationship="Model.Fk_Arista_DestinoFinal" FromRole="arista" ToRole="destino" />
-          <NavigationProperty Name="DestinoInicial" Relationship="Model.FK_Arista_DestinoInicial" FromRole="arista" ToRole="destino" />
+          <NavigationProperty Name="DestinoInicial" Relationship="Self.FK_arista_destinoinicial" FromRole="aristas" ToRole="destinos" />
+          <NavigationProperty Name="DestinoFinal" Relationship="Self.FK_aristas_destinofinal" FromRole="aristas" ToRole="destinos" />
         </EntityType>
         <EntityType Name="Destino">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Imagen" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Coordenada_X" Type="Decimal" Nullable="false" />
-          <Property Name="Coordenada_Y" Type="Decimal" Nullable="false" />
-          <Property Name="Tipo" Type="SByte" Nullable="false" />
+          <Property Name="Coordenada_X" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="Coordenada_Y" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="Tipo" Type="Int32" Nullable="false" />
           <Property Name="IdUsuarioAgrega" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AristasFinal" Relationship="Model.Fk_Arista_DestinoFinal" FromRole="destino" ToRole="arista" />
-          <NavigationProperty Name="AristasInicial" Relationship="Model.FK_Arista_DestinoInicial" FromRole="destino" ToRole="arista" />
-          <NavigationProperty Name="UsuarioAgrega" Relationship="Model.FK_Destino_UsuarioAgrega" FromRole="destino" ToRole="usuario" />
+          <NavigationProperty Name="AristasIniciales" Relationship="Self.FK_arista_destinoinicial" FromRole="destinos" ToRole="aristas" />
+          <NavigationProperty Name="AristasFinales" Relationship="Self.FK_aristas_destinofinal" FromRole="destinos" ToRole="aristas" />
+          <NavigationProperty Name="UsuarioAgrega" Relationship="travelModel.FK_destino_usuarioagrega" FromRole="destinos" ToRole="usuarios" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Usuarios" Relationship="Model.FK_Usuario_Rol" FromRole="rol" ToRole="usuario" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_usuario_rol" FromRole="roles" ToRole="usuarios" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Contrasena" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contrasena" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IdRol" Type="Int32" Nullable="false" />
-          <Property Name="Activo" Type="SByte" Nullable="false" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Apellido" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Genero" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Destinos" Relationship="Model.FK_Destino_UsuarioAgrega" FromRole="usuario" ToRole="destino" />
-          <NavigationProperty Name="Rol" Relationship="Model.FK_Usuario_Rol" FromRole="usuario" ToRole="rol" />
+          <Property Name="Genero" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Destinos" Relationship="Self.FK_destino_usuarioagrega" FromRole="usuarios" ToRole="destinos" />
+          <NavigationProperty Name="Rol" Relationship="Self.FK_usuario_rol" FromRole="usuarios" ToRole="roles" />
         </EntityType>
-        <Association Name="Fk_Arista_DestinoFinal">
-          <End Type="Model.Destino" Role="destino" Multiplicity="1" />
-          <End Type="Model.Arista" Role="arista" Multiplicity="*" />
+        <Association Name="FK_arista_destinoinicial">
+          <End Role="destinos" Type="travelModel.Destino" Multiplicity="1" />
+          <End Role="aristas" Type="travelModel.Arista" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="destino">
+            <Principal Role="destinos">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="arista">
-              <PropertyRef Name="IdDestinoFinal" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Arista_DestinoInicial">
-          <End Type="Model.Destino" Role="destino" Multiplicity="1" />
-          <End Type="Model.Arista" Role="arista" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="destino">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="arista">
+            <Dependent Role="aristas">
               <PropertyRef Name="IdDestinoInicial" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Destino_UsuarioAgrega">
-          <End Type="Model.Usuario" Role="usuario" Multiplicity="1" />
-          <End Type="Model.Destino" Role="destino" Multiplicity="*" />
+        <Association Name="FK_aristas_destinofinal">
+          <End Role="destinos" Type="travelModel.Destino" Multiplicity="1" />
+          <End Role="aristas" Type="travelModel.Arista" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="usuario">
+            <Principal Role="destinos">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="destino">
+            <Dependent Role="aristas">
+              <PropertyRef Name="IdDestinoFinal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_destino_usuarioagrega">
+          <End Role="usuarios" Type="travelModel.Usuario" Multiplicity="1" />
+          <End Role="destinos" Type="travelModel.Destino" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="destinos">
               <PropertyRef Name="IdUsuarioAgrega" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Usuario_Rol">
-          <End Type="Model.Rol" Role="rol" Multiplicity="1" />
-          <End Type="Model.Usuario" Role="usuario" Multiplicity="*" />
+        <Association Name="FK_usuario_rol">
+          <End Role="roles" Type="travelModel.Rol" Multiplicity="1" />
+          <End Role="usuarios" Type="travelModel.Usuario" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="rol">
+            <Principal Role="roles">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="usuario">
+            <Dependent Role="usuarios">
               <PropertyRef Name="IdRol" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="travelEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Aristas" EntityType="travelModel.Arista" />
+          <EntitySet Name="Destinos" EntityType="travelModel.Destino" />
+          <EntitySet Name="Roles" EntityType="travelModel.Rol" />
+          <EntitySet Name="Usuarios" EntityType="travelModel.Usuario" />
+          <AssociationSet Name="FK_arista_destinoinicial" Association="Self.FK_arista_destinoinicial">
+            <End Role="destinos" EntitySet="Destinos" />
+            <End Role="aristas" EntitySet="Aristas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_aristas_destinofinal" Association="Self.FK_aristas_destinofinal">
+            <End Role="destinos" EntitySet="Destinos" />
+            <End Role="aristas" EntitySet="Aristas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_destino_usuarioagrega" Association="Self.FK_destino_usuarioagrega">
+            <End Role="usuarios" EntitySet="Usuarios" />
+            <End Role="destinos" EntitySet="Destinos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuario_rol" Association="Self.FK_usuario_rol">
+            <End Role="roles" EntitySet="Roles" />
+            <End Role="usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="Model" />
-        <Alias Key="Target" Value="Model.Store" />
-        <EntityContainerMapping CdmEntityContainer="ModelContainer" StorageEntityContainer="ModelStoreContainer">
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="travelModelStoreContainer" CdmEntityContainer="travelEntities">
           <EntitySetMapping Name="Aristas">
-            <EntityTypeMapping TypeName="Model.Arista">
-              <MappingFragment StoreEntitySet="arista">
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Distancia" ColumnName="Distancia" />
-                <ScalarProperty Name="IdDestinoFinal" ColumnName="IdDestinoFinal" />
-                <ScalarProperty Name="IdDestinoInicial" ColumnName="IdDestinoInicial" />
+            <EntityTypeMapping TypeName="travelModel.Arista">
+              <MappingFragment StoreEntitySet="aristas">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdDestinoInicial" ColumnName="IdDestinoInicial" />
+                <ScalarProperty Name="IdDestinoFinal" ColumnName="IdDestinoFinal" />
+                <ScalarProperty Name="Distancia" ColumnName="Distancia" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Destinos">
-            <EntityTypeMapping TypeName="Model.Destino">
-              <MappingFragment StoreEntitySet="destino">
-                <ScalarProperty Name="IdUsuarioAgrega" ColumnName="IdUsuarioAgrega" />
-                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
-                <ScalarProperty Name="Coordenada_Y" ColumnName="Coordenada_Y" />
-                <ScalarProperty Name="Coordenada_X" ColumnName="Coordenada_X" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+            <EntityTypeMapping TypeName="travelModel.Destino">
+              <MappingFragment StoreEntitySet="destinos">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Coordenada_X" ColumnName="Coordenada_X" />
+                <ScalarProperty Name="Coordenada_Y" ColumnName="Coordenada_Y" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="IdUsuarioAgrega" ColumnName="IdUsuarioAgrega" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="Model.Rol">
-              <MappingFragment StoreEntitySet="rol">
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+            <EntityTypeMapping TypeName="travelModel.Rol">
+              <MappingFragment StoreEntitySet="roles">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Usuarios">
-            <EntityTypeMapping TypeName="Model.Usuario">
-              <MappingFragment StoreEntitySet="usuario">
-                <ScalarProperty Name="Genero" ColumnName="Genero" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Activo" ColumnName="Activo" />
-                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
-                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
-                <ScalarProperty Name="Username" ColumnName="Usuario" />
+            <EntityTypeMapping TypeName="travelModel.Usuario">
+              <MappingFragment StoreEntitySet="usuarios">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Username" ColumnName="Usuario" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -315,10 +313,10 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
-        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

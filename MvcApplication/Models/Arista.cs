@@ -20,7 +20,7 @@ namespace MvcApplication.Models
         public decimal Distancia { get; set; }
         public string Descripcion { get; set; }
     
-        public virtual Destino DestinoFinal { get; set; }
         public virtual Destino DestinoInicial { get; set; }
+        public virtual Destino DestinoFinal { get; set; }
     }
 }
