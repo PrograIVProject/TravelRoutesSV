@@ -41,7 +41,13 @@ namespace MvcApplication.Controllers
         {
             try
             {
+                var arista2 = new Arista();
+                arista2.IdDestinoInicial = arista.IdDestinoFinal;
+                arista2.IdDestinoFinal = arista.IdDestinoInicial;
+                arista2.Distancia = arista.Distancia;
+                arista2.Descripcion = arista.Descripcion;
                 _db.Aristas.Add(arista);
+                _db.Aristas.Add(arista2);
                 _db.SaveChanges();
                 return this.GetById(arista.Id);
             }

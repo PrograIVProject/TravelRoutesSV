@@ -39,4 +39,11 @@
             params: {id : id}
         });
     };
+    this.getRoute = function (idDestinoInicio, idDestinoFin) {
+        return $http({
+            url: '/Ruta/Get',
+            method: 'GET',
+            params: { IdDestinoInicial: idDestinoInicio, IdDestinoFinal: idDestinoFin }
+        });
+    }
 });

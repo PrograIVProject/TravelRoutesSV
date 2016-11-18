@@ -1,15 +1,20 @@
 ﻿app.controller("MapController", function ($scope, DataService) {
     $scope.addingNewDestino = false;
     $scope.addingNewArista = false;
+    $scope.findingRoute = false;
+
     $scope.selectingDestinoFinal = false;
     $scope.destinations = [];
     $scope.Destination = {};
     $scope.Arista = {};
+    $scope.Recorrido = [];
     $scope.selectMap = function ($option) {
-        if ($option === "destino") {
+        if ($option == "destino") {
             $scope.addingNewDestino = true;
-        } else {
+        } else if ($option == "conexion") {
             $scope.addingNewArista = true;
+        } else if ($option == "ruta") {
+            $scope.findingRoute = true;
         }
     };
     $scope.openDestinoModal = function ($val) {
@@ -30,6 +35,15 @@
             $scope.Arista = {};
         }
     };
+    $scope.openRecorridoModal = function ($val) {
+        if ($val) {
+            $("#recorridoModal").modal();
+        } else {
+            $scope.findingRoute = false;
+            $("#recorridoModal").modal("toggle");
+            $scope.Arista = {};
+        }
+    }
     $scope.addNewDestino = function(){
         $scope.Destination.Tipo = 1;
         $scope.Destination.IdUsuarioAgrega = 1;
@@ -66,9 +80,19 @@
             }
         });
     };
+    $scope.getAristaById = function (id) {
+        DataService.getAristaById(id).then(function (response) {
+            if (response.data && response.data.success) {
+                $scope.Arista = response.data.arista;
+                $scope.openAristaModal(true);
+            } else {
+                alert(response.data.message);
+            }
+        });
+    };
     $scope.init = function () {
-        $scope.loadDestinations();
         $scope.loadAristas();
+        $scope.loadDestinations();
     };
     $scope.loadAristas = function(){
         DataService.getAllAristas().then(function(response){
@@ -84,6 +108,19 @@
             })
         });
     };
+    $scope.findNewRoute = function () {
+        DataService.getRoute($scope.Arista.IdDestinoInicial, $scope.Arista.IdDestinoFinal).then(function (response) {
+            if (response.data.success) {
+                response.data.recorrido.forEach(function (destino, i) {
+                    $scope.Recorrido.push(destino);
+                });
+                $scope.openRecorridoModal(true);
+            } else {
+                alert(response.data.message);
+            }
+            
+        });
+    }
     $scope.canvasClick = function ($event) {
         if ($scope.addingNewDestino) {
             $scope.Destination.Coordenada_X = $event.offsetX;
@@ -101,7 +138,7 @@
             name: id + "",
             click: function (layer) {
                 var IdArista = layer.name;
-                alert(IdArista);
+                $scope.getAristaById(IdArista);
             },
             mouseover: function (layer) {
                
@@ -120,14 +157,18 @@
             click: function (layer) {
                 var IdDestino = layer.name;
                 $scope.$apply(function () {
-                    if ($scope.addingNewArista) {
+                    if ($scope.addingNewArista || $scope.findingRoute) {
                         if (!$scope.selectingDestinoFinal) {
                             $scope.Arista.IdDestinoInicial = IdDestino;
                             $scope.selectingDestinoFinal = true;
                         } else {
                             $scope.Arista.IdDestinoFinal = IdDestino;
                             $scope.selectingDestinoFinal = false;
-                            $scope.openAristaModal(true);
+                            if ($scope.addingNewArista) {
+                                $scope.openAristaModal(true);
+                            } else if ($scope.findingRoute) {
+                                $scope.findNewRoute();
+                            }
                         }
                     } else {
                         $scope.getDestinationById(IdDestino);

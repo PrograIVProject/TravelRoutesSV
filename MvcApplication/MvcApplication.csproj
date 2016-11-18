@@ -134,6 +134,7 @@
     <Compile Include="Controllers\AristaController.cs" />
     <Compile Include="Controllers\DestinoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RutaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -143,7 +144,9 @@
     <Compile Include="Models\Destino.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Dijkstra.cs" />
     <Compile Include="Models\FloydWarshall.cs" />
+    <Compile Include="Models\Grafo.cs" />
     <Compile Include="Models\Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
